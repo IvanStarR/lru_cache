@@ -29,7 +29,8 @@ public:
         } 
  
         cache_list_.emplace_front(key, value); 
-        cache_map_[key] = cache_list_.begin(); 
+      //  cache_map_[key] = cache_list_.begin(); 
+        cache_map_.emplace(key, cache_list_.begin());
  
         if (cache_list_.size() > capacity_) { 
             auto last = cache_list_.end(); 
