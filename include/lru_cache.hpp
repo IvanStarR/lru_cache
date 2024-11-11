@@ -9,15 +9,16 @@
  
 template <typename Key, typename Value> 
 class LRUCache { 
-
-public: 
+private:
     explicit LRUCache(size_t capacity) : capacity_(capacity) {} 
+public: 
+   
 
-    static std::unique_ptr<LRUCache<Key, Value>> Create(size_t capacity) { 
+     static std::unique_ptr<LRUCache<Key, Value>> Create(size_t capacity) { 
         if (capacity == 0) { 
             return nullptr; 
         } 
-        return std::make_unique<LRUCache<Key, Value>>(capacity); 
+        return std::unique_ptr<LRUCache<Key, Value>>(new LRUCache<Key, Value>(capacity));
     } 
  
    
