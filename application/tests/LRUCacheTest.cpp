@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch_all.hpp>
-#include "../include/lru_cache.hpp"
+#include "../../include/lru_cache.hpp"
 #include <iostream>
 
 TEST_CASE("LRUCache<int, std::string>", "[LRUCache]") {
