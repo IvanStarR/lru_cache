@@ -14,7 +14,7 @@ private:
 public: 
    
 
-     static std::unique_ptr<LRUCache<Key, Value>> Create(size_t capacity) { 
+    static std::unique_ptr<LRUCache<Key, Value>> Create(size_t capacity) noexcept{ 
         if (capacity == 0) { 
             return nullptr; 
         } 
@@ -22,7 +22,7 @@ public:
     } 
  
    
-    void put(const Key& key, const Value& value) { 
+    void put(const Key& key, const Value& value) noexcept{ 
         auto it = cache_map_.find(key); 
         if (it != cache_map_.end()) { 
             cache_list_.erase(it->second); 
@@ -41,7 +41,7 @@ public:
     } 
  
     
-    std::optional<Value> get(const Key& key) { 
+    std::optional<Value> get(const Key& key) noexcept{ 
         auto it = cache_map_.find(key); 
         if (it == cache_map_.end()) { 
             return std::nullopt; 
