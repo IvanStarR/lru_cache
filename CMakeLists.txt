@@ -6,13 +6,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+find_package(Catch2 REQUIRED)
+
 
 include(cmake/module.cmake)
+include(cmake/FindCatch2.cmake)
+
+include_directories(
+    ${CATCH2_INCLUDE_DIRS}
+)
 
 add_subdirectory(source)
 add_subdirectory(application)
 
 enable_testing()
+
+
+
+
 #add_library(LRUCache STATIC include/lru_cache.hpp source/lru_cache.cpp)
 #target_include_directories(LRUCache PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 

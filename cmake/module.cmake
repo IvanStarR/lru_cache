@@ -3,20 +3,25 @@
 # TYPE -- type of application. possible values are static, shared, executable
 # DEPENDENCIES -- list of deps of the app
 
-macro(application NAME DEPENDENCIES)
-file(GLOB_RECURSE FILES
-        ${CMAKE_CURRENT_DIR}*.cpp ${CMAKE_CURRENT_DIR}*.c ${CMAKE_CURRENT_DIR}*.cc 
-        ${CMAKE_CURRENT_DIR}*.cxx ${CMAKE_CURRENT_DIR}*.h ${CMAKE_CURRENT_DIR}*.h++ 
-        ${CMAKE_CURRENT_DIR}*.hxx
+macro(application NAME)
+
+    set(DEPS ${ARGN})
+
+   
+    file(GLOB_RECURSE FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/*.c ${CMAKE_CURRENT_SOURCE_DIR}/*.cc
+        ${CMAKE_CURRENT_SOURCE_DIR}/*.cxx ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.h++
+        ${CMAKE_CURRENT_SOURCE_DIR}/*.hxx
     )
+
+   
     add_executable(${NAME} ${FILES})
+
     target_include_directories(${NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../include)
 
-    foreach(DEPENDENCY IN LISTS DEPENDENCIES)
-        target_link_libraries(${NAME} PUBLIC ${DEPENDENCY})
+    foreach(DEP ${DEPS})
+        target_link_libraries(${NAME} PUBLIC ${DEP})
     endforeach()
-    
-
 endmacro()
 
 
