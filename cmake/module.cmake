@@ -30,17 +30,23 @@ endmacro()
 # TYPE -- type of a module. possible values are static, shared
 # DEPENDENCIES -- list of deps of the module
 
-macro(module NAME TYPE DEPENDENCIES) 
+macro(module NAME TYPE) 
 
-file(GLOB_RECURSE MODULE_SOURCES
-        *.cpp *.c *.cc *.cxx *.h *.h++ *.hxx
+    set(DEPS ${ARGN})
+
+    file(GLOB_RECURSE MODULE_SOURCES
+        ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/*.c ${CMAKE_CURRENT_SOURCE_DIR}/*.cc
+        ${CMAKE_CURRENT_SOURCE_DIR}/*.cxx ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.h++
+        ${CMAKE_CURRENT_SOURCE_DIR}/*.hxx
     )
 
     add_library(${NAME} ${TYPE} ${MODULE_SOURCES})
 
     target_include_directories(${NAME} PUBLIC $${CMAKE_CURRENT_SOURCE_DIR}/../../include)
 
-    target_link_libraries(${NAME} PUBLIC ${DEPENDENCIES})
+    foreach(DEP ${DEPS})
+    target_link_libraries(${NAME} PUBLIC ${DEP})
+    endforeach()
 
 endmacro()
 
