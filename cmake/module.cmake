@@ -35,8 +35,12 @@ endmacro()
 macro(application)
     cmake_parse_arguments(APP "" "NAME;TYPE" "DEPENDENCIES" ${ARGN})
 
-    if(NOT APP_NAME OR NOT APP_TYPE)
-        message(FATAL_ERROR "application macro requires NAME and TYPE arguments")
+    if(NOT APP_NAME)
+        message(FATAL_ERROR "application macro requires NAME argument")
+    endif()
+
+    if(NOT APP_TYPE)
+        message(FATAL_ERROR "application macro requires TYPE argument")
     endif()
 
     file(GLOB_RECURSE APP_SOURCES
@@ -45,7 +49,19 @@ macro(application)
         ${CMAKE_CURRENT_SOURCE_DIR}/*.hxx
     )
 
-    add_executable(${APP_NAME} ${APP_SOURCES})
+    if(NOT APP_SOURCES)
+        message(FATAL_ERROR "No source files found in directory")
+    endif()
+
+    if(APP_TYPE STREQUAL "executable")
+        add_executable(${APP_NAME} ${APP_SOURCES})
+    elseif(APP_TYPE STREQUAL "static" OR APP_TYPE STREQUAL "STATIC")
+        add_library(${APP_NAME} STATIC ${APP_SOURCES})
+    elseif(APP_TYPE STREQUAL "shared" OR APP_TYPE STREQUAL "SHARED")
+        add_library(${APP_NAME} SHARED ${APP_SOURCES})
+    else()
+        message(FATAL_ERROR "Unsupported application type")
+    endif()
 
     target_include_directories(${APP_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../include)
 

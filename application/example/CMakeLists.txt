@@ -1,3 +1,3 @@
 application(NAME Example 
-            TYPE exectuble 
+            TYPE static
             DEPENDENCIES LRUCache) 
