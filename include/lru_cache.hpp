@@ -51,6 +51,9 @@ public:
         cache_list_.splice(cache_list_.begin(), cache_list_, it->second); 
         return it->second->second; 
     } 
+
+    //delete 
+    void Test2();
  
 private: 
     size_t capacity_; 

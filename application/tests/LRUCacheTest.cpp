@@ -16,6 +16,7 @@ TEST_CASE("LRUCache<int, std::string>", "[LRUCache]") {
         REQUIRE(cache->get(2).has_value());
         REQUIRE(cache->get(2).value() == "two");
         Test();
+        cache->Test2();
     }
 
     SECTION("Eviction of least recently used element") {
