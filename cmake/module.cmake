@@ -52,7 +52,6 @@ macro(application)
         message(FATAL_ERROR "No source files found in directory")
     endif()
     
-    set(APP_NAME "${PROJECT_NAME}.${APP_NAME}")
 
     if(APP_TYPE STREQUAL "executable")
         add_executable(${APP_NAME} ${APP_SOURCES})
