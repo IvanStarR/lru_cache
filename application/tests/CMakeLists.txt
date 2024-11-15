@@ -1,5 +1,5 @@
 application(NAME MyApplication 
-            TYPE exectable
+            TYPE executable
             DEPENDENCIES LRUCache 
                          Catch2::Catch2WithMain)
 
