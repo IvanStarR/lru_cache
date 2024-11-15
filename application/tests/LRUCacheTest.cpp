@@ -2,11 +2,11 @@
 #include <catch2/catch_all.hpp>
 #include "../../include/lru_cache.hpp"
 #include <iostream>
-
+#include "dir_example/dir.hpp"
 TEST_CASE("LRUCache<int, std::string>", "[LRUCache]") {
     auto cache = LRUCache<int, std::string>::Create(2);
     REQUIRE(cache != nullptr);
-
+    
     SECTION("Inserting and retrieving elements") {
         cache->put(1, "one");
         cache->put(2, "two");
@@ -15,6 +15,7 @@ TEST_CASE("LRUCache<int, std::string>", "[LRUCache]") {
         REQUIRE(cache->get(1).value() == "one");
         REQUIRE(cache->get(2).has_value());
         REQUIRE(cache->get(2).value() == "two");
+        Test();
     }
 
     SECTION("Eviction of least recently used element") {
