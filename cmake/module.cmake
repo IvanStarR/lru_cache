@@ -15,11 +15,10 @@ macro(module)
         ${CMAKE_CURRENT_SOURCE_DIR}/*.cxx ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.h++
         ${CMAKE_CURRENT_SOURCE_DIR}/*.hxx
     )
-
+    set(MODULE_NAME "${PROJECT_NAME}.${MODULE_NAME}")
     add_library(${MODULE_NAME} ${MODULE_TYPE} ${MODULE_SOURCES})
 
-    target_include_directories(${MODULE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../include)
-
+ 
     if(MODULE_DEPENDENCIES)
         foreach(DEP ${MODULE_DEPENDENCIES})
             target_link_libraries(${MODULE_NAME} PUBLIC ${DEP})
@@ -30,7 +29,7 @@ endmacro()
 # Creates static or shared library or an executable binary from files of current directory with .cpp, .h, .c, .cc, .hxx, .cxx extensions
 # NAME -- name of application
 # TYPE -- type of application. possible values are static, shared, executable
-# DEPENDENCIES -- list of deps of the app
+# DEPENDENCIES -- list of deps of    the app
 
 macro(application)
     cmake_parse_arguments(APP "" "NAME;TYPE" "DEPENDENCIES" ${ARGN})
@@ -52,6 +51,8 @@ macro(application)
     if(NOT APP_SOURCES)
         message(FATAL_ERROR "No source files found in directory")
     endif()
+    
+    set(APP_NAME "${PROJECT_NAME}.${APP_NAME}")
 
     if(APP_TYPE STREQUAL "executable")
         add_executable(${APP_NAME} ${APP_SOURCES})
@@ -63,7 +64,6 @@ macro(application)
         message(FATAL_ERROR "Unsupported application type")
     endif()
 
-    target_include_directories(${APP_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../include)
 
     if(APP_DEPENDENCIES)
         foreach(DEP ${APP_DEPENDENCIES})
