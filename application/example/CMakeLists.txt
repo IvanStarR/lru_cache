@@ -1,1 +1,3 @@
-application(Example LRUCache)
+application(NAME Example 
+            TYPE exectuble 
+            DEPENDENCIES LRUCache) 

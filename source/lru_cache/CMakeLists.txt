@@ -1,5 +1,6 @@
 
-module(LRUCache STATIC)
+module(NAME LRUCache
+       TYPE STATIC)
 
 
 #module(NAME lru_cache 
