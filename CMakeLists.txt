@@ -6,11 +6,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-find_package(Catch2 REQUIRED)
-
 
 include(cmake/module.cmake)
-include(cmake/FindCatch2.cmake)
+
+
+find_package(Catch2 REQUIRED)
 
 include_directories(
     ${CATCH2_INCLUDE_DIRS}
